@@ -1,3 +1,4 @@
+![alt text](https://github.com/james-d12/Aries/blob/main/icon.png?raw=true)
 # Aries
 Aries is a terrible nexus mods manager written in python.
 
