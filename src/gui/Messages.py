@@ -1,11 +1,11 @@
 from PyQt5.QtWidgets import QMessageBox
 
 def messageBox(icon, title, text):
-    errorMsg = QMessageBox()
-    errorMsg.setIcon(icon)
-    errorMsg.setWindowTitle(title)   
-    errorMsg.setText(text)
-    errorMsg.exec()
+    msgBox = QMessageBox()
+    msgBox.setIcon(icon)
+    msgBox.setWindowTitle(title)   
+    msgBox.setText(text)
+    msgBox.exec()
 
 def infoMessageBox(title, text):
     messageBox(QMessageBox.Information, title, text)

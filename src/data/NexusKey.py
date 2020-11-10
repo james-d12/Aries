@@ -49,7 +49,7 @@ class NexusKey():
 
     def canConnect(self):
         try: 
-            response = requests.get(url="https://api.nexusmods.com/", headers=self.key, timeout=5)
+            response = requests.get(url="https://api.nexusmods.com/", headers=self.key)
             response.raise_for_status()
         except HTTPError as http_err:
             print(f'HTTP error occurred: {http_err}')
@@ -71,13 +71,11 @@ class NexusKey():
             if not self.connected:
                 self.removeKeyFromFile()
                 self.key = {}
-                self.process()
         else: 
-            while not self.key:
-                self.key["apikey"] = InputDialog(None, "API Key", "Enter Nexus API Key:").input
-            if self.canConnect():
-                self.writeKeyToFile()
+            self.key["apikey"] = InputDialog(None, "API Key", "Enter Nexus API Key:").input
             self.connected = self.canConnect()
+            if self.connected:
+                self.writeKeyToFile()
 
     def connect(self):
         self.process()

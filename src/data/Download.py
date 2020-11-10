@@ -3,6 +3,7 @@ import requests
 import json
 
 from data.Utility import extractGameFromURL, extractIDFromURL
+from data.NexusAPI import requestFilesForMod
 
 class Download:
     def __init__(self, url):
@@ -10,16 +11,15 @@ class Download:
         self.modID = extractIDFromURL(url)
         self.url = url 
 
-    def getInfo(self, apikey):
-        url = ("https://api.nexusmods.com/v1/games/{game}/mods/{modID}/files.json".format(game=self.game, modID=self.modID))
-        fileInfoJson = requests.get(url=url, headers=apikey).json()
-        for k in fileInfoJson:
-            if k == "files":
-                for j in fileInfoJson[k]:
-                    for k2 in j:
-                        if k2 == "file_id":
-                            self.fileID = j[k2]
-                            self.fileURL = ("https://api.nexusmods.com/v1/games/skyrimspecialedition/mods/{modID}/files/{fileID}.json".format(modID=self.modID, fileID=self.fileID))
+    def getInfo(self):
+        fileInfoJson = requestFilesForMod(self.game, self.modID)
+    
+        for key in fileInfoJson["files"]:
+            for key2 in j:
+                if j["is_primary"] == True:
+                    self.fileID = j["file_id"]
+                    self.fileURL = ("https://api.nexusmods.com/v1/games/skyrimspecialedition/mods/{modID}/files/{fileID}.json".format(modID=self.modID, fileID=self.fileID))
+                    break
 
     def print(self):
         print("     Game: ", self.game)

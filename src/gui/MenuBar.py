@@ -9,7 +9,7 @@ class MenuBar(QMenuBar):
 
     def initUI(self):
         self.menuQuit = MenuActionCreate(self.parent, '&Exit', "Exit Application", qApp.quit)
-        self.menuRefresh = MenuActionCreate(self.parent, '&Refresh', "Refresh Application", lambda : self.parent.update())
+        self.menuRefresh = MenuActionCreate(self.parent, '&Refresh', "Refresh Application", self.parent.update)
         self.fileMenu = MenuCreate(self.parent.menuBar(), '&File')
         self.fileMenu.addAction(self.menuRefresh)
         self.fileMenu.addAction(self.menuQuit)

@@ -11,15 +11,12 @@ class Table(QWidget):
         
         self.tabs = QTabWidget()
         self.modsTab = ModTable(self)
-        self.rootModsTab = ModTable(self)
         self.downloadsTab = DownloadTable(self)
         self.pluginsTab = PluginTable(self)
 
         self.tabs.addTab(self.modsTab,"Mods")
-        self.tabs.addTab(self.rootModsTab,"Root Mods")
         self.tabs.addTab(self.downloadsTab,"Downloads")
         self.tabs.addTab(self.pluginsTab,"Plugins")
-
         
         self.layout.addWidget(self.tabs)
         self.setLayout(self.layout)

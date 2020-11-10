@@ -1,13 +1,9 @@
-from PyQt5.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QTabWidget, QAction, QToolBar
+from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import Qt, QFileInfo
 
-from PyQt5 import QtCore
-
-from gui.Tables import ModTable, DownloadTable, PluginTable
 from gui.MenuBar import MenuBar
-from gui.InputDialog import InputDialog
 from gui.Toolbar import ToolBar
-
 from gui.Table import Table
 
 class Window(QMainWindow):
@@ -16,13 +12,14 @@ class Window(QMainWindow):
         self.setWindowTitle("Aries")
         self.setGeometry(left, top, width, height)
         self.initUI()
+        self.setWindowIcon(QIcon(QFileInfo(__file__).absolutePath()+'/img/icon-32x32.png'))
 
     def initMenuBar(self):
         self.menuBar = MenuBar(self)
 
     def initToolBar(self):
         self.toolBar = ToolBar(self)
-        self.addToolBar(QtCore.Qt.LeftToolBarArea, self.toolBar)
+        self.addToolBar(Qt.LeftToolBarArea, self.toolBar)
 
     def initTable(self):   
         self.table = Table(self)
@@ -32,6 +29,9 @@ class Window(QMainWindow):
         self.initMenuBar()
         self.initToolBar()
         self.initTable()
+    
+    def start(self):
+        self.show()
 
     def addMod(self, mod):
         self.table.addMod(mod)
