@@ -4,7 +4,7 @@ class ModTable(QTableWidget):
     def __init__(self, parent=None):
         super(ModTable, self).__init__(0, 5, parent)
         # Setup the horizontal label headers.
-        self.setHorizontalHeaderLabels(["Mod Name", "Mod Author", "Version", "Update", "Link"])
+        self.setHorizontalHeaderLabels(["Mod Name", "Mod Author", "Version", "Update", "URL"])
         
         # Define how the columns work.
         self.modsHeader = self.horizontalHeader() 
@@ -12,7 +12,6 @@ class ModTable(QTableWidget):
         self.modsHeader.setSectionResizeMode(1, QHeaderView.ResizeToContents)
         self.modsHeader.setSectionResizeMode(2, QHeaderView.ResizeToContents)
 
-        # Adjust how the elements change in size when window size is reduced / increased.
         self.modsHeader.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
         # Counter for bottom of table.
@@ -24,7 +23,7 @@ class ModTable(QTableWidget):
         self.setItem(self.bottom, 1, QTableWidgetItem(mod.author))
         self.setItem(self.bottom, 2, QTableWidgetItem(mod.version))
         self.setItem(self.bottom, 3, QTableWidgetItem("No"))
-        self.setItem(self.bottom, 4, QTableWidgetItem(mod.link))
+        self.setItem(self.bottom, 4, QTableWidgetItem(mod.url))
         self.bottom+=1
 
 class PluginTable(QTableWidget):
@@ -46,16 +45,20 @@ class PluginTable(QTableWidget):
 
 class DownloadTable(QTableWidget):
     def __init__(self, parent=None):
-        super(DownloadTable, self).__init__(0, 2, parent)
-        self.setHorizontalHeaderLabels(["Name", "Progress"])
+        super(DownloadTable, self).__init__(0, 4, parent)
+        self.setHorizontalHeaderLabels(["Name", "ID", "URL", "Progress"])
         self.downloadsHeader = self.horizontalHeader()
         self.downloadsHeader.setSectionResizeMode(0, QHeaderView.Stretch)
         self.downloadsHeader.setSectionResizeMode(1, QHeaderView.ResizeToContents)
+        self.downloadsHeader.setSectionResizeMode(2, QHeaderView.ResizeToContents)
+        self.downloadsHeader.setSectionResizeMode(3, QHeaderView.ResizeToContents)
         self.downloadsHeader.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
         self.bottom = 0
 
     def addDownload(self, download):
         self.insertRow(self.bottom)
-        self.setItem(self.bottom, 0, QTableWidgetItem(str(download.fileID)))
-        self.setItem(self.bottom, 1, QTableWidgetItem(download.fileURL))
+        self.setItem(self.bottom, 0, QTableWidgetItem(download.fileName))
+        self.setItem(self.bottom, 1, QTableWidgetItem(str(download.fileID)))
+        self.setItem(self.bottom, 2, QTableWidgetItem(download.fileURL))
+        self.setItem(self.bottom, 3, QTableWidgetItem())
         self.bottom+=1

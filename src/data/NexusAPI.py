@@ -6,7 +6,8 @@ def __returnData(url):
         try: 
             return requests.get(url=url, headers=Data.apikey).json()
         except Exception:
-            print("Error requesting data with URL:{url} from Nexus API.".format(url))
+            print("Error requesting data with URL: {url} from Nexus API.".format(url=url))
+            return 
 
 def __returnDataText(url):
     return json.dumps(__returnData(url))

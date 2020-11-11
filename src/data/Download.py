@@ -10,17 +10,25 @@ class Download:
         self.game = extractGameFromURL(url)
         self.modID = extractIDFromURL(url)
         self.url = url 
+        self.fileID = ""
+        self.fileURL = ""
+        self.valid = False
 
     def getInfo(self):
         fileInfoJson = requestFilesForMod(self.game, self.modID)
-    
-        for key in fileInfoJson["files"]:
-            for key2 in j:
-                if j["is_primary"] == True:
-                    self.fileID = j["file_id"]
-                    self.fileURL = ("https://api.nexusmods.com/v1/games/skyrimspecialedition/mods/{modID}/files/{fileID}.json".format(modID=self.modID, fileID=self.fileID))
-                    break
+        try:
+            for key in fileInfoJson["files"]:
+                for key2 in key:
+                    if key["is_primary"] == True or key["category_name"] == "MAIN":
+                        self.fileName = key["file_name"]
+                        self.fileID = key["file_id"]
+                        self.fileURL = ("https://api.nexusmods.com/v1/games/skyrimspecialedition/mods/{modID}/files/{fileID}.json".format(modID=self.modID, fileID=self.fileID))
+                        self.valid = True
+                        break 
 
+        except Exception:
+            print("Mod with requested URL could not be retrieved.")
+                
     def print(self):
         print("     Game: ", self.game)
         print("     Mod ID: ", self.modID)
