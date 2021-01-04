@@ -1,15 +1,17 @@
 from requests.auth import HTTPBasicAuth
 import requests
 import json
+import wget
 
 from data.Utility import extractGameFromURL, extractIDFromURL
-from data.NexusAPI import requestFilesForMod
+from data.NexusAPI import requestFilesForMod, requestDownloadLink
 
 class Download:
     def __init__(self, url):
         self.game = extractGameFromURL(url)
         self.modID = extractIDFromURL(url)
         self.url = url 
+        self.fileName = ""
         self.fileID = ""
         self.fileURL = ""
         self.valid = False
@@ -29,6 +31,16 @@ class Download:
         except Exception:
             print("Mod with requested URL could not be retrieved.")
                 
+    def download(self):
+        data = requestDownloadLink(self.game, self.modID, self.fileID)
+
+        for key in data:
+            if (key["name"] == "Nexus Global Content Delivery Network"):
+                url = key["URI"]
+                data = requests.get(url, allow_redirects=True)
+                self.downloadPath = '../downloads/{fileName}'.format(fileName=self.fileName)
+                open(self.downloadPath, 'wb').write(data.content)
+
     def print(self):
         print("     Game: ", self.game)
         print("     Mod ID: ", self.modID)

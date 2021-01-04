@@ -2,6 +2,8 @@ from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import Qt, QFileInfo
 
+from data.DownloadManager import DownloadManager
+
 from gui.MenuBar import MenuBar
 from gui.Toolbar import ToolBar
 from gui.Table import Table
@@ -11,8 +13,10 @@ class Window(QMainWindow):
         super(Window, self).__init__()
         self.setWindowTitle("Aries")
         self.setGeometry(left, top, width, height)
-        self.initUI()
         self.setWindowIcon(QIcon(QFileInfo(__file__).absolutePath()+'/img/icon-32x32.png'))
+        self.initUI()
+
+        self.downloadManager = DownloadManager()
 
     def initMenuBar(self):
         self.menuBar = MenuBar(self)

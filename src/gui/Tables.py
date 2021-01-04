@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractScrollArea, QMenu, QAction, QPushButton
+from PyQt5.QtGui import QCursor
 
 class ModTable(QTableWidget):
     def __init__(self, parent=None):
@@ -14,7 +15,6 @@ class ModTable(QTableWidget):
 
         self.modsHeader.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContents)
 
-        # Counter for bottom of table.
         self.bottom = 0
 
     def addMod(self, mod):
@@ -30,6 +30,7 @@ class PluginTable(QTableWidget):
     def __init__(self, parent=None):
         super(PluginTable, self).__init__(0, 2, parent)
         self.setHorizontalHeaderLabels(["Name", "Enabled"])
+        self.setEditTriggers(QTableWidget.NoEditTriggers)
         self.pluginsHeader = self.horizontalHeader()
         self.pluginsHeader.setSectionResizeMode(0, QHeaderView.Stretch)
         self.pluginsHeader.setSectionResizeMode(1, QHeaderView.ResizeToContents)
@@ -42,11 +43,11 @@ class PluginTable(QTableWidget):
         self.setItem(self.bottom, 1, QTableWidgetItem(plugin.enabled))
         self.bottom+=1
 
-
 class DownloadTable(QTableWidget):
     def __init__(self, parent=None):
         super(DownloadTable, self).__init__(0, 4, parent)
         self.setHorizontalHeaderLabels(["Name", "ID", "URL", "Progress"])
+        self.setEditTriggers(QTableWidget.NoEditTriggers)
         self.downloadsHeader = self.horizontalHeader()
         self.downloadsHeader.setSectionResizeMode(0, QHeaderView.Stretch)
         self.downloadsHeader.setSectionResizeMode(1, QHeaderView.ResizeToContents)
@@ -60,5 +61,5 @@ class DownloadTable(QTableWidget):
         self.setItem(self.bottom, 0, QTableWidgetItem(download.fileName))
         self.setItem(self.bottom, 1, QTableWidgetItem(str(download.fileID)))
         self.setItem(self.bottom, 2, QTableWidgetItem(download.fileURL))
-        self.setItem(self.bottom, 3, QTableWidgetItem())
         self.bottom+=1
+        download.download()

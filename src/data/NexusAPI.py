@@ -7,7 +7,7 @@ def __returnData(url):
             return requests.get(url=url, headers=Data.apikey).json()
         except Exception:
             print("Error requesting data with URL: {url} from Nexus API.".format(url=url))
-            return 
+            return None
 
 def __returnDataText(url):
     return json.dumps(__returnData(url))
@@ -31,3 +31,7 @@ def requestMod(game, modID):
 def requestModChangeLog(game, modID):
     return __returnData(
         "https://api.nexusmods.com/v1/games/{game}/mods/{modID}/changelogs.json".format(game=game, modID=modID))
+
+def requestUserInfo():
+    return __returnData(
+        "https://api.nexusmods.com/v1/users/validate.json")

@@ -19,7 +19,6 @@ class ToolBar(QToolBar):
         self.downloadButton.setToolTip("Download a Mod")
         self.addAction(self.downloadButton)
 
-
     def downloadModPrompt(self):
         input = InputDialog(None, "Download a Mod", "Enter Mod URL: ").input 
         download = Download(input)
@@ -27,6 +26,9 @@ class ToolBar(QToolBar):
 
         if download.valid == True:
             self.parent.addDownload(download)
+            download.download()
         else:
             errorMessageBox("Mod Download Warning", "Could not download the mod with the provided URL: {url}!".format(url=download.url))
-        
+
+            
+
