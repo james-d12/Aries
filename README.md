@@ -6,6 +6,7 @@ Aries is a terrible nexus mods manager written in python. Its aimed for me to le
 Requires the following python libraries:
 - PyQt5 - 'pip install PyQt5'
 - qtmodern - 'pip install qtmodern'
+- requests - 'pip install requests'
 
 # Icon
 
