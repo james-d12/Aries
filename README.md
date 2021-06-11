@@ -7,6 +7,7 @@ Requires the following python libraries:
 - PyQt5 - 'pip install PyQt5'
 - qtmodern - 'pip install qtmodern'
 - requests - 'pip install requests'
+- wget - 'pip install wget'
 
 # Icon
 
